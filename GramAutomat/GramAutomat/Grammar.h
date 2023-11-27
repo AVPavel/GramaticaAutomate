@@ -7,19 +7,19 @@ class Grammar
 	std::vector<std::string> mNeterminale;
 	std::vector<std::string> mTerminale;
 	std::string mSimbolStart;
-	Production productii;
+	Production mProductii;
 public:
 	//Constructori
 	Grammar();
-	Grammar(const std::vector<std::string>& neterminale, const std::vector<std::string>& terminale, const std::string simbolStart);
+	Grammar(const std::vector<std::string>& neterminale, const std::vector<std::string>& terminale, const std::string simbolStart, const Production& productii);
 	Grammar(const Grammar& grammar);
-	~Grammar();
+	~Grammar() = default;
 
 	//Getteri
-	std::vector<std::string> GetVariableSymbArray();
-	std::vector<std::string> GetFinSymbArray();
-	std::string GetStartSymbol();
-	Production GetProductions();
+	std::vector<std::string> GetNeterminale();
+	std::vector<std::string> GetTerminale();
+	std::string GetSimbolStart();
+	Production GetProductii();
 
 
 	//Metode

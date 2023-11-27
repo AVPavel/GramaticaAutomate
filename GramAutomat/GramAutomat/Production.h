@@ -10,12 +10,16 @@ struct Rule
 };
 class Production
 {
+public:
+	//membrii
 	std::vector<Rule> mRules;
+	size_t size;
 
 	//Constructori
 	Production() = default;
-	explicit Production(const std::vector<Rule>& rules) : mRules(rules) {}
+	Production(const std::vector<Rule>& rules) : mRules(rules) {}
 	Production(const Production& other) = default;
 
 	//eventual de facut o metoda de ReadReguli / AdaugaRegula / getReguli ca sa fie mai curat
+	int getNumberOfRules();
 };
