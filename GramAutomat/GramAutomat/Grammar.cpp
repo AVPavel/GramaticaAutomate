@@ -53,5 +53,6 @@ std::string Grammar::GenerateWord()
 		GrammarUtils::ApplyProduction(cuvant, mProductii, randomIndex);
 		
 	}
+	return "";
 }
 
