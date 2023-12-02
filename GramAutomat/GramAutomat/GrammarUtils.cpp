@@ -40,3 +40,20 @@ void GrammarUtils::ApplyProduction(std::string cuvant, const Production& product
 	cuvant.replace(pos, productii.mRules[index].left.size(), replacement);
 }
 
+bool GrammarUtils::IsNeterminal(std::string caracter, std::vector<std::string> neterminale) {
+	for (const auto& neterminal : neterminale) {
+		if (caracter == neterminal) {
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GrammarUtils::IsTerminal(std::string caracter, std::vector<std::string> terminale) {
+	for (const auto& terminal : terminale) {
+		if (caracter == terminal) {
+			return true;
+		}
+	}
+	return false;
+}

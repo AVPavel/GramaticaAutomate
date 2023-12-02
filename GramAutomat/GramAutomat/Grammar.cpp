@@ -1,4 +1,4 @@
-#include "Grammar.h"
+﻿#include "Grammar.h"
 #include "GrammarUtils.h"
 #include <random>
 
@@ -54,5 +54,67 @@ std::string Grammar::GenerateWord()
 		
 	}
 	return "";
+}
+
+bool Grammar::VerifyGrammar() {
+	//din curs
+	//VN -> neterminale alfabet finit nevid
+	//VT -> terminale alfabtet finit nevid si Vt intersectat cu VN != multimea vida
+	// S apartine lui VN -> simbol de start
+	// 	P = o multime finit a de perechi ordonate (u, v ), u, v ∈ (VN ⋃ VT )∗ si u contine
+	// cel putin un element din VN . Elementele lui P se numesc productii si se
+	// noteaza u → v
+	if (mNeterminale.empty()) {
+		return false;
+	}
+	if (mTerminale.empty()) {
+		return false;
+	}
+	//sa nu aiba elemente comune terminalele cu neterminalele
+	for (const auto& terminal : mTerminale) {
+		if (std::find(mNeterminale.begin(), mNeterminale.end(), terminal) != mNeterminale.end()) {
+			return false;
+		}
+	}
+	//simbolul de start trebuie sa fie un neterminal
+	if (std::find(mNeterminale.begin(), mNeterminale.end(), mSimbolStart) == mNeterminale.end()) {
+		return false;
+	}
+
+	//aici se verifica daca fiecare caracter din u si fiecare caracter din v apartin ori lui mTerminal ori mNeterminal
+	//si daca u are cel putin un singur caracter din mNeterminal
+	for (const auto& [u, v] : mProductii.mRules) {
+
+	}
+
+
+}
+
+bool Grammar::IsRegular() {
+	//ar trb sa fie de forma asta
+	// A -> aB sau A-> a
+	// si A ,B sunt neterminale si a e terminal
+	//deci practic in stanga sa fie mereu doar un caracter si in dreapta ori sa fie doar terminal
+	//ori sa fie terminal si neterminal in ordinea asta
+	for (const auto& [u, v] : this->mProductii.mRules) {
+		if (u.size() > 1) {
+			return false;
+		}
+		if (v.size() > 2) {
+			return false;
+		}
+		if (GrammarUtils::IsNeterminal(u, this->mNeterminale) == false) {
+			return false;
+		}
+		if (GrammarUtils::IsTerminal(v[0], this->mTerminale) == false) {
+			return false;
+		}
+		if (v.size() == 2) {
+			if (GrammarUtils::IsNeterminal(v[1], this->mNeterminale) == false) {
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
