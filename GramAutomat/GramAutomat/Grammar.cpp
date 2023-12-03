@@ -216,7 +216,11 @@ std::istream& operator>>(std::istream& in, Grammar& g)
 			break;
 
 		// Assuming mProductii is a Production object
-		Rule rule(word, { derivedWord });
+		std::vector<std::string> derivedWordSplit;
+		for (const auto& caracter : derivedWord) {
+			derivedWordSplit.push_back(std::string(1, caracter));
+		}
+		Rule rule(word, derivedWordSplit);
 		g.mProductii.AddRule(rule);
 	}
 

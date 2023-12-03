@@ -6,7 +6,7 @@ void printMenu()
 {
     std::cout <<"----------Meniu----------\n\n";
     std::cout<<"1. Afiseaza Gramatica \n";
-    std::cout<<"2. Genereaza n cuvinte\n";
+    std::cout<<"2. Genereaza n cuvinte\n";    
     std::cout<<"3. Obtine si afiseaza Automatul echivalent\n";
     std::cout<<"4. Verifica cuvant (este sau nu acceptat de automat)\n";
     std::cout << "5. Genereaza cuvant si verifica daca e acceptat de automat\n\n";
@@ -25,9 +25,11 @@ int main()
     std::fstream file("Data.txt");
     Grammar* gram = new Grammar();
     file >> *gram;
-    bool OK = true;
+    bool OK;
+    gram->IsRegular() ? OK = true : OK = false;
     char option;
-
+    if (OK == false)
+        std::cout << "Gramatica nu e regulata. Meniu indisponibil.";
     while (OK) {
         printMenu();
         std::cin >> option;
@@ -44,7 +46,7 @@ int main()
             for (int i = 0; i < nrCuvinte; i++) {
                 std::cout << gram->GenerateWord() << '\n';
             }
-            break;
+            break;     
         case '3':
             //Obtine/Afiseaza Automat
             std::cout << "Obtine/Afiseaza automat";
