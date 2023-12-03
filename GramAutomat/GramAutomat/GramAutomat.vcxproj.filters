@@ -27,6 +27,12 @@
     <ClCompile Include="GrammarUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FiniteAutomaton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringCompare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Grammar.h">
@@ -38,9 +44,15 @@
     <ClInclude Include="GrammarUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FiniteAutomaton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringCompare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data.txt">
+    <Text Include="GrammarData.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

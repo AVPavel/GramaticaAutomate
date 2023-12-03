@@ -128,18 +128,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FiniteAutomaton.cpp" />
     <ClCompile Include="GramAutomat.cpp" />
     <ClCompile Include="Grammar.cpp" />
     <ClCompile Include="GrammarUtils.cpp" />
     <ClCompile Include="Production.cpp" />
+    <ClCompile Include="StringCompare.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FiniteAutomaton.h" />
     <ClInclude Include="Grammar.h" />
     <ClInclude Include="GrammarUtils.h" />
     <ClInclude Include="Production.h" />
+    <ClInclude Include="StringCompare.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Data.txt" />
+    <Text Include="GrammarData.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -35,6 +35,15 @@ Production Grammar::GetProductii()
 	return mProductii;
 }
 
+bool Grammar::ContainsLambda()
+{
+	int n = mProductii.getNumberOfRules();
+	for (int i = 0; i < n; i++)
+		if (productii[i].second == "-")
+			return true;
+	return false;
+}
+
 //std::string Grammar::GenerateWord()
 //{
 //	std::random_device device;
