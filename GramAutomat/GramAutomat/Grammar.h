@@ -1,15 +1,14 @@
 #pragma once
-#include <vector>
-#include <string>
 #include <iostream>
 #include "Production.h"
 class Grammar
 {
+public:
 	std::vector<std::string> mNeterminale;
 	std::vector<std::string> mTerminale;
 	std::string mSimbolStart;
 	Production mProductii;
-public:
+
 	//Constructori
 	Grammar();
 	Grammar(const std::vector<std::string>& neterminale, const std::vector<std::string>& terminale, const std::string simbolStart, const Production& productii);

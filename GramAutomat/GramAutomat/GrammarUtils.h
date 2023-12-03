@@ -8,5 +8,8 @@ class GrammarUtils
 public:
 	static bool IsWordGenerated(const std::string& cuvant, const std::vector<std::string>& neterminale);
 	static std::vector<int> FindPossibleProductions(const std::string& cuvant, Production productii);
-	static void ApplyProduction(std::string cuvant, const Production& productii, const int& index);
+	static void ApplyProduction(std::string& cuvant, const Production& productii, const int& index);
+	//bool GrammarUtils::IsNeterminal(std::string caracter, std::vector<std::string> neterminale)
+	static bool IsNeterminal(std::string caracter, std::vector<std::string> neterminale);
+	static bool IsTerminal(std::string caracter, std::vector<std::string> terminale);
 };

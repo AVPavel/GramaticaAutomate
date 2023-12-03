@@ -2,7 +2,7 @@
 
 //De definit metodele din production
 
-int Production::getNumberOfRules()
+size_t Production::getNumberOfRules()
 {
 	return mRules.size();
 }

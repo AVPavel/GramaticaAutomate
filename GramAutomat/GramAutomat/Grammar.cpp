@@ -35,25 +35,72 @@ Production Grammar::GetProductii()
 	return mProductii;
 }
 
+//std::string Grammar::GenerateWord()
+//{
+//	std::random_device device;
+//	std::mt19937 generator(device());
+//	std::string word = "";
+//	std::string genWord = "";
+//	word += simbolStart;
+//	int n = productii.size();
+//	std::vector<std::pair<std::string, std::string>> availableProductions;
+//	do {
+//		//std::cout << word << ' ';
+//		genWord += word;
+//		availableProductions.clear();
+//		for (int i = 0; i < n; i++)
+//		{
+//			if (word.find(productii[i].first) != std::string::npos)
+//				availableProductions.push_back(productii[i]);
+//		}
+//		if (availableProductions.empty())
+//			break;
+//		std::uniform_int_distribution<int> distributionProductii(0, availableProductions.size() - 1);
+//		int random = distributionProductii(generator);
+//		std::vector <int> positions;
+//		size_t position = word.find(availableProductions[random].first);
+//		while (position != std::string::npos)
+//		{
+//			positions.push_back(position);
+//			position = word.find(availableProductions[random].first, position + 1);
+//		}
+//		std::uniform_int_distribution<int> distributionPosition(0, positions.size() - 1);
+//		int randomPosition = distributionPosition(generator);
+//		position = positions[randomPosition];
+//		std::string new_word = "";
+//		if (availableProductions[random].second != "-")
+//			word.replace(position, 1, availableProductions[random].second);
+//		else
+//			word.replace(position, 1, "");
+//		if (word != "")
+//			genWord += " => ";
+//	} while (availableProductions.size() != 0);
+//	//std::cout << '\n';
+//	return genWord;
+//}
+
+
 std::string Grammar::GenerateWord()
 {
 	size_t contor = 0;
 	std::string cuvant = mSimbolStart;
-	if (!GrammarUtils::IsWordGenerated(cuvant, mNeterminale))
+	while(!GrammarUtils::IsWordGenerated(cuvant, mNeterminale))
 	{
 		++contor;
 		std::vector<int> productiiPosibile = GrammarUtils::FindPossibleProductions(cuvant, mProductii);
-		
+		//0 -> 3;  1-> 4
 		std::random_device rd;
 		std::mt19937 eng(rd());
 		std::uniform_int_distribution<> distr(0, productiiPosibile.size() - 1);
 
 		int randomIndex = distr(eng);
+		//pp ca genereaza 0
 		
-		GrammarUtils::ApplyProduction(cuvant, mProductii, randomIndex);
-		
+		GrammarUtils::ApplyProduction(cuvant, mProductii, productiiPosibile[randomIndex]);		
 	}
-	return "";
+
+
+	return cuvant;
 }
 
 bool Grammar::VerifyGrammar() {
@@ -83,11 +130,7 @@ bool Grammar::VerifyGrammar() {
 
 	//aici se verifica daca fiecare caracter din u si fiecare caracter din v apartin ori lui mTerminal ori mNeterminal
 	//si daca u are cel putin un singur caracter din mNeterminal
-	for (const auto& [u, v] : mProductii.mRules) {
-
-	}
-
-
+	for (const auto& [u, v] : mProductii.mRules) {}
 }
 
 bool Grammar::IsRegular() {
@@ -140,15 +183,26 @@ std::ostream& operator<<(std::ostream& out, const Grammar& grammar)
 	out << "\nP: ";
 	int i = 1;
 	for (const auto& rule : grammar.mProductii.mRules)
-		out << i++ << ") " << rule.left << " -> ";// << rule.right << '\n';
+		out << i++ << ") " << rule.left << " -> "<< rule.toString() << '\n';
 	return out;
 }
 
 
 std::istream& operator>>(std::istream& in, Grammar& g)
 {
+	std::string tempNeterminale, tempTerminale;
 	// Read individual elements of mNeterminale, mTerminale, and mSimbolStart
-	in >> g.mNeterminale >> g.mTerminale >> g.mSimbolStart;
+	in >> tempNeterminale >> tempTerminale;
+
+	for (const auto& caracter : tempNeterminale) {
+		g.mNeterminale.push_back(std::string(1,caracter));
+	}
+
+	for (const auto& caracter : tempTerminale) {
+		g.mTerminale.push_back(std::string(1, caracter));
+	}
+
+	in >> g.mSimbolStart;
 
 	// Clear any existing rules in mProductii before reading new ones
 	g.mProductii.mRules.clear();

@@ -1,6 +1,7 @@
 #include <vector>
 #include <iostream>
-
+#include "Grammar.h"
+#include <fstream>
 void printMenu() 
 {
     std::cout <<"----------Meniu----------\n\n";
@@ -21,6 +22,9 @@ int main()
     IsRegular  
 */
     //Daca Gramatica este valida(partea de sus)
+    std::fstream file("Data.txt");
+    Grammar* gram = new Grammar();
+    file >> *gram;
     bool OK = true;
     char option;
 
@@ -30,11 +34,16 @@ int main()
         switch (option) {
         case '1':
             //Afiseaza Gramatica
-            std::cout << "se va afisa gramatica";
+            std::cout<< *gram;
             break;                
         case '2':
             //Genereaza n cuvinte
-            std::cout << "Genereaza n cuvinte";
+            int nrCuvinte;
+            std::cout << '\n' << "Numar de cuvinte = ";
+            std::cin >> nrCuvinte;
+            for (int i = 0; i < nrCuvinte; i++) {
+                std::cout << gram->GenerateWord() << '\n';
+            }
             break;
         case '3':
             //Obtine/Afiseaza Automat
@@ -60,4 +69,5 @@ int main()
         system("pause");
         system("CLS");
     }
+
 }

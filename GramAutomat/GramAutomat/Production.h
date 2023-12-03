@@ -6,7 +6,15 @@ struct Rule
 	std::string left;
 	std::vector<std::string> right;
 
-	Rule(const std::string& left, const std::vector<std::string>& right);
+	Rule(const std::string& left, const std::vector<std::string>& right)
+		: left(left), right(right) {}
+	std::string toString() const {
+		std::string fullRight;
+		for (const auto& caracter : this->right) {
+			fullRight += caracter;
+		}
+		return fullRight;
+	}
 };
 class Production
 {
@@ -21,6 +29,6 @@ public:
 	Production(const Production& other) = default;
 
 	//eventual de facut o metoda de ReadReguli / AdaugaRegula / getReguli ca sa fie mai curat
-	int getNumberOfRules();
+	size_t getNumberOfRules();
 	void AddRule(const Rule& rule);
 };

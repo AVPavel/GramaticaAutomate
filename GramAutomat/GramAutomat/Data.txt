@@ -1,0 +1,9 @@
+SA abc+* S
+S aA
+S bA
+S cA
+A +S
+A *S
+S a
+S b
+S c

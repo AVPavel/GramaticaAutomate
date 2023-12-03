@@ -26,7 +26,7 @@ std::vector<int> GrammarUtils::FindPossibleProductions(const std::string& cuvant
 	return indexes;
 }
 
-void GrammarUtils::ApplyProduction(std::string cuvant, const Production& productii, const int& index)
+void GrammarUtils::ApplyProduction(std::string& cuvant, const Production& productii, const int& index)
 {
 	size_t pos = cuvant.find(productii.mRules[index].left);
 	std::string replacement;
