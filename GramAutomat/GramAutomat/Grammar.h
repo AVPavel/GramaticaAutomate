@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <iostream>
 #include "Production.h"
 class Grammar
 {
@@ -24,7 +25,9 @@ public:
 
 	//Metode
 	void ReadGrammar(std::fstream& file);
+	friend std::istream& operator>>(std::istream& in, Grammar& g);
 	void PrintGrammar();
+	friend std::ostream& operator<<(std::ostream& out, const Grammar& g);
 	bool VerifyGrammar();
 	bool IsRegular();
 	std::string GenerateWord();

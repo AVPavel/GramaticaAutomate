@@ -22,4 +22,5 @@ public:
 
 	//eventual de facut o metoda de ReadReguli / AdaugaRegula / getReguli ca sa fie mai curat
 	int getNumberOfRules();
+	void AddRule(const Rule& rule);
 };

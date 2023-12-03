@@ -118,3 +118,54 @@ bool Grammar::IsRegular() {
 	return true;
 }
 
+std::ostream& operator<<(std::ostream& out, const Grammar& grammar)
+{
+	out << "G = ({";
+	int n = grammar.mNeterminale.size();
+	for (int i = 0; i < n; i++)
+	{
+		out << grammar.mNeterminale[i];
+		if (i != n - 1)
+			out << ", ";
+	}
+	out << "}, {";
+	n = grammar.mTerminale.size();
+	for (int i = 0; i < n; i++)
+	{
+		out << grammar.mTerminale[i];
+		if (i != n - 1)
+			out << ", ";
+	}
+	out << "}, " << grammar.mSimbolStart << ", P)";
+	out << "\nP: ";
+	int i = 1;
+	for (const auto& rule : grammar.mProductii.mRules)
+		out << i++ << ") " << rule.left << " -> ";// << rule.right << '\n';
+	return out;
+}
+
+
+std::istream& operator>>(std::istream& in, Grammar& g)
+{
+	// Read individual elements of mNeterminale, mTerminale, and mSimbolStart
+	in >> g.mNeterminale >> g.mTerminale >> g.mSimbolStart;
+
+	// Clear any existing rules in mProductii before reading new ones
+	g.mProductii.mRules.clear();
+
+	while (true) {
+		std::string word, derivedWord;
+		in >> word >> derivedWord;
+
+		// Check for the end of the input
+		if (in.eof())
+			break;
+
+		// Assuming mProductii is a Production object
+		Rule rule(word, { derivedWord });
+		g.mProductii.AddRule(rule);
+	}
+
+	return in;
+}
+
