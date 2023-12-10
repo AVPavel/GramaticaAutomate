@@ -139,7 +139,16 @@ bool Grammar::VerifyGrammar() {
 
 	//aici se verifica daca fiecare caracter din u si fiecare caracter din v apartin ori lui mTerminal ori mNeterminal
 	//si daca u are cel putin un singur caracter din mNeterminal
-	for (const auto& [u, v] : mProductii.mRules) {}
+	for (const auto& [u, v] : mProductii.mRules) {
+		if (std::find(mNeterminale.begin(), mNeterminale.end(), u) == mNeterminale.end()) {
+			return false;
+		}
+		if (std::find(mNeterminale.begin(), mNeterminale.end(), v) == mNeterminale.end() && std::find(mTerminale.begin(), mTerminale.end(), v) == mTerminale.end()) {
+			return false;
+		}
+
+	}
+	return true;
 }
 
 bool Grammar::IsRegular() {
