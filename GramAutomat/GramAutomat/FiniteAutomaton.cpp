@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& out, const FiniteAutomaton& automaton)
     {
         out << automaton.stari[i];
         if (i != n - 1)
-            out << ", ";
+            out << ", ";    
     }
     out << "}, {";
     n = automaton.alfabetIntrare.size();
@@ -55,22 +55,22 @@ std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
     return in;
 }
 
-void FiniteAutomaton::SetStari(std::string stari)
+void FiniteAutomaton::SetStari(std::vector<std::string> stari)
 {
     this->stari = stari;
 }
 
-void FiniteAutomaton::SetAlfabetIntrare(std::string alfabetIntrare)
+void FiniteAutomaton::SetAlfabetIntrare(std::vector<std::string> alfabetIntrare)
 {
     this->alfabetIntrare = alfabetIntrare;
 }
 
-void FiniteAutomaton::SetStareInitiala(char stareInitiala)
+void FiniteAutomaton::SetStareInitiala(std::string stareInitiala)
 {
     this->stareInitiala = stareInitiala;
 }
 
-void FiniteAutomaton::SetStariFinale(std::string stariFinale)
+void FiniteAutomaton::SetStariFinale(std::vector<std::string> stariFinale)
 {
     this->stariFinale = stariFinale;
 }
@@ -87,8 +87,9 @@ void FiniteAutomaton::AddTranzitie(std::pair<std::string, std::string> tranzitie
 bool FiniteAutomaton::VerifyAutomaton()
 {
     //Are sau nu stare initiala
-    if (stari.find(stareInitiala) == std::string::npos)
+    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
         return false;
+
     
     //Starea finala este gasita in multimea de stari
     if (CheckAllLettersPartOf(stari, stariFinale) == false)
@@ -128,8 +129,8 @@ bool FiniteAutomaton::CheckWord(std::string word)
 {
     std::string stareActuala = "";
     stareActuala += stareInitiala;
-    int l = word.size();
-    for (int i = 0; i < l; i++)
+    int lengthWord = word.size();
+    for (int i = 0; i < lengthWord; i++)
     {
         std::string stareNoua = "";
         int n = stareActuala.size();
@@ -147,7 +148,9 @@ bool FiniteAutomaton::CheckWord(std::string word)
             return false;
         stareActuala = stareNoua;
     }
-    if (CheckCommonLetter(stareActuala, stariFinale) == false)
-        return false;
+    for (int i = 0; i < stariFinale.size(); i++) {
+        if (CheckCommonLetter(stareActuala, stariFinale[i]) == false)
+            return false;
+    }
     return true;
 }

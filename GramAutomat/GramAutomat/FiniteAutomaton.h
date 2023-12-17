@@ -14,10 +14,10 @@ class FiniteAutomaton : protected StringCompare
 	std::vector<std::string> stariFinale;
 	std::map<std::pair<char, char>, std::string> tranzitii;
 public:
-	void SetStari(std::string stari);
-	void SetAlfabetIntrare(std::string alfabetIntrare);
+	void SetStari(std::vector<std::string> stari);
+	void SetAlfabetIntrare(std::vector<std::string> alfabetIntrare);
 	void SetStareInitiala(std::string stareInitiala);
-	void SetStariFinale(std::string stariFinale);
+	void SetStariFinale(std::vector<std::string> stariFinale);
 	void AddTranzitie(std::pair<std::string, std::string> tranzitie);
 	bool VerifyAutomaton();
 	bool IsDeterministic();

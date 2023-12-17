@@ -42,7 +42,6 @@ FiniteAutomaton transformGrammarInAutomaton(Grammar grammar)
 
 int main()
 {
-
 /*  ReadGrammar
     VerifyGrammar
     IsRegular  
@@ -97,5 +96,4 @@ int main()
         system("pause");
         system("CLS");
     }
-
 }

@@ -12,7 +12,7 @@ bool StringCompare::CheckCommonLetter(std::string s1, std::string s2)
             return true;
     return false;
 }
-
+//daca tot din s2 exista in s1
 bool StringCompare::CheckAllLettersPartOf(std::string s1, std::string s2)
 {
     std::map<char, int> letters;
