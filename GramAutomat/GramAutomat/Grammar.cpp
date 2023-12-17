@@ -35,14 +35,14 @@ Production Grammar::GetProductii()
 	return mProductii;
 }
 
-bool Grammar::ContainsLambda()
-{
-	int n = mProductii.getNumberOfRules();
-	for (int i = 0; i < n; i++)
-		if (productii[i].second == "-")
-			return true;
-	return false;
-}
+//bool Grammar::ContainsLambda() {
+//	for (const auto& rule : this->mProductii.mRules) {
+//		if (rule.right.size() == 1 && rule.right[0] == "-") {
+//			return true;
+//		}
+//	}
+//	return false;
+//}
 
 //std::string Grammar::GenerateWord()
 //{
@@ -91,11 +91,9 @@ bool Grammar::ContainsLambda()
 
 std::string Grammar::GenerateWord()
 {
-	size_t contor = 0;
 	std::string cuvant = mSimbolStart;
 	while(!GrammarUtils::IsWordGenerated(cuvant, mNeterminale))
 	{
-		++contor;
 		std::vector<int> productiiPosibile = GrammarUtils::FindPossibleProductions(cuvant, mProductii);
 		//0 -> 3;  1-> 4
 		std::random_device rd;
@@ -111,7 +109,7 @@ std::string Grammar::GenerateWord()
 
 	return cuvant;
 }
-
+//
 bool Grammar::VerifyGrammar() {
 	//din curs
 	//VN -> neterminale alfabet finit nevid
@@ -140,14 +138,20 @@ bool Grammar::VerifyGrammar() {
 	//aici se verifica daca fiecare caracter din u si fiecare caracter din v apartin ori lui mTerminal ori mNeterminal
 	//si daca u are cel putin un singur caracter din mNeterminal
 	for (const auto& [u, v] : mProductii.mRules) {
+		// Check if 'u' is a non-terminal
 		if (std::find(mNeterminale.begin(), mNeterminale.end(), u) == mNeterminale.end()) {
 			return false;
 		}
-		if (std::find(mNeterminale.begin(), mNeterminale.end(), v) == mNeterminale.end() && std::find(mTerminale.begin(), mTerminale.end(), v) == mTerminale.end()) {
-			return false;
+		// Now iterate over each string in 'v', which is a vector of strings
+		for (const auto& s : v) {
+			// Check if each string 's' is a non-terminal or a terminal
+			if (std::find(mNeterminale.begin(), mNeterminale.end(), s) == mNeterminale.end() &&
+				std::find(mTerminale.begin(), mTerminale.end(), s) == mTerminale.end()) {
+				return false;
+			}
 		}
-
 	}
+
 	return true;
 }
 

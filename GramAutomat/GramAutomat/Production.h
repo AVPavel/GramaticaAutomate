@@ -31,4 +31,5 @@ public:
 	//eventual de facut o metoda de ReadReguli / AdaugaRegula / getReguli ca sa fie mai curat
 	size_t getNumberOfRules();
 	void AddRule(const Rule& rule);
+
 };

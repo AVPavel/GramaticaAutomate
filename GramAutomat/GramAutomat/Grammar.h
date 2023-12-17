@@ -30,5 +30,5 @@ public:
 	bool VerifyGrammar();
 	bool IsRegular();
 	std::string GenerateWord();
-	bool ContainsLambda();
+	//bool ContainsLambda();
 };

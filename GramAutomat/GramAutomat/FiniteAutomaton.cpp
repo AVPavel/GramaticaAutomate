@@ -42,18 +42,18 @@ std::ostream& operator<<(std::ostream& out, const FiniteAutomaton& automaton)
     return out;
 }
 
-std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
-{
-    in >> automaton.stari >> automaton.alfabetIntrare >> automaton.stareInitiala >> automaton.stariFinale;
-    while (!in.eof())
-    {
-        char stare, val;
-        std::string rez;
-        in >> stare >> val >> rez;
-        automaton.tranzitii[{stare, val}] += rez;
-    }
-    return in;
-}
+//std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
+//{
+//    in >> automaton.stari >> automaton.alfabetIntrare >> automaton.stareInitiala >> automaton.stariFinale;
+//    while (!in.eof())
+//    {
+//        char stare, val;
+//        std::string rez;
+//        in >> stare >> val >> rez;
+//        automaton.tranzitii[{stare, val}] += rez;
+//    }
+//    return in;
+//}
 
 void FiniteAutomaton::SetStari(std::vector<std::string> stari)
 {
@@ -84,34 +84,34 @@ void FiniteAutomaton::AddTranzitie(std::pair<std::string, std::string> tranzitie
         tranzitii[{tranzitie.first[0], tranzitie.second[0]}] += "T";
 }
 
-bool FiniteAutomaton::VerifyAutomaton()
-{
-    //Are sau nu stare initiala
-    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
-        return false;
-
-    
-    //Starea finala este gasita in multimea de stari
-    if (CheckAllLettersPartOf(stari, stariFinale) == false)
-        return false;
-
-    //Trece prin tranzitii
-    for (auto it = tranzitii.begin(); it != tranzitii.end(); it++)
-    {
-        //Nodul din care pleaca tranzitia exista
-        if (stari.find(it->first.first) == std::string::npos)
-            return false;
-
-        //simbolul cu care pleaca tranzitia exista
-        if (alfabetIntrare.find(it->first.second) == std::string::npos)
-            return false;
-
-        //Nodul in care pleaca tranzitia exista
-        if (CheckAllLettersPartOf(stari, it->second) == false)
-            return false;
-    }
-    return true;
-}
+//bool FiniteAutomaton::VerifyAutomaton()
+//{
+//    //Are sau nu stare initiala
+//    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
+//        return false;
+//
+//    
+//    //Starea finala este gasita in multimea de stari
+//    if (CheckAllLettersPartOf(stari, stariFinale) == false)
+//        return false;
+//
+//    //Trece prin tranzitii
+//    for (auto it = tranzitii.begin(); it != tranzitii.end(); it++)
+//    {
+//        //Nodul din care pleaca tranzitia exista
+//        if (stari.find(it->first.first) == std::string::npos)
+//            return false;
+//
+//        //simbolul cu care pleaca tranzitia exista
+//        if (alfabetIntrare.find(it->first.second) == std::string::npos)
+//            return false;
+//
+//        //Nodul in care pleaca tranzitia exista
+//        if (CheckAllLettersPartOf(stari, it->second) == false)
+//            return false;
+//    }
+//    return true;
+//}
 
 
 //Verifica daca o tranzitie se duce in mai multe noduri

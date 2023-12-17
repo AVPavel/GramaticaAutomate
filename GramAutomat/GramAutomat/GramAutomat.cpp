@@ -17,28 +17,28 @@ void printMenu()
 
 
 
-FiniteAutomaton transformGrammarInAutomaton(Grammar grammar)
-{
-    FiniteAutomaton automaton;
-    std::vector<std::string> neterminale = grammar.GetNeterminale();
-    neterminale.push_back("T");
-    automaton.SetStari(neterminale); //
-    automaton.SetStareInitiala(grammar.GetSimbolStart());
-    automaton.SetAlfabetIntrare(grammar.GetTerminale()); 
-    if (!grammar.ContainsLambda())
-        automaton.SetStariFinale("T");
-    else
-    {
-        std::string st = "T";
-        st += grammar.GetSimbolStart();
-        automaton.SetStariFinale(st);
-    }
-    std::vector<std::pair<std::string, std::string>> productii = grammar.GetProductii();
-    int n = productii.size();
-    for (int i = 0; i < n; i++)
-        automaton.AddTranzitie(productii[i]);
-    return automaton;
-}
+//FiniteAutomaton transformGrammarInAutomaton(Grammar grammar)
+//{
+//    FiniteAutomaton automaton;
+//    std::vector<std::string> neterminale = grammar.GetNeterminale();
+//    neterminale.push_back("T");
+//    automaton.SetStari(neterminale); //
+//    automaton.SetStareInitiala(grammar.GetSimbolStart());
+//    automaton.SetAlfabetIntrare(grammar.GetTerminale()); 
+//    if (!grammar.ContainsLambda())
+//        automaton.SetStariFinale("T");
+//    else
+//    {
+//        std::string st = "T";
+//        st += grammar.GetSimbolStart();
+//        automaton.SetStariFinale(st);
+//    }
+//    std::vector<std::pair<std::string, std::string>> productii = grammar.GetProductii();
+//    int n = productii.size();
+//    for (int i = 0; i < n; i++)
+//        automaton.AddTranzitie(productii[i]);
+//    return automaton;
+//}
 
 int main()
 {
@@ -47,6 +47,7 @@ int main()
     IsRegular  
 */
     //Daca Gramatica este valida(partea de sus)
+    std::cout << "Hello????eee";
     std::fstream file("GrammarData.txt");
     Grammar* gram = new Grammar();
     file >> *gram;
