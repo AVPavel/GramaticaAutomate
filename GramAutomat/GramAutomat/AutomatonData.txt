@@ -1,0 +1,11 @@
+SABC abc S ST
+S a A
+S a C
+A a A
+A a C
+A b B
+B b A
+B c C
+B b T
+C c C
+C a T

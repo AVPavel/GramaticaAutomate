@@ -2,58 +2,97 @@
 
 std::ostream& operator<<(std::ostream& out, const FiniteAutomaton& automaton)
 {
+    // Output set of states
     out << "M = ({";
-    int n = automaton.stari.size();
-    for (int i = 0; i < n; i++)
+    for (const auto& state : automaton.stari)
     {
-        out << automaton.stari[i];
-        if (i != n - 1)
-            out << ", ";    
-    }
-    out << "}, {";
-    n = automaton.alfabetIntrare.size();
-    for (int i = 0; i < n; i++)
-    {
-        out << automaton.alfabetIntrare[i];
-        if (i != n - 1)
+        out << state;
+        if (&state != &automaton.stari.back())
             out << ", ";
     }
+    out << "},{";
+
+    // Output alphabet
+    for (const auto& symbol : automaton.alfabetIntrare)
+    {
+        out << symbol;
+        if (&symbol != &automaton.alfabetIntrare.back())
+            out << ", ";
+    }
+
     out << "}, " << (char)235 << ", " << automaton.stareInitiala << ", {";
-    n = automaton.stariFinale.size();
-    for (int i = 0; i < n; i++)
+
+    // Output set of final states
+    for (const auto& finalState : automaton.stariFinale)
     {
-        out << automaton.stariFinale[i];
-        if (i != n - 1)
+        out << finalState;
+        if (&finalState != &automaton.stariFinale.back())
             out << ", ";
     }
+
     out << "})\n";
-    for (auto it = automaton.tranzitii.begin(); it != automaton.tranzitii.end(); it++)
+
+    // Output transition functions with indices
+    int index = 1;
+    for (const auto& transition : automaton.tranzitii)
     {
-        out << (char)235 << "(" << it->first.first << ", " << it->first.second << ") = {";
-        int l = it->second.size();
-        for (int i = 0; i < l; i++)
-        {
-            out << it->second[i];
-            if (i != l - 1)
-                out << ", ";
-        }
-        out << "}\n";
+        out << " " << index << "-(" << transition.first.first << ", " << transition.first.second << ")-> " << transition.second << "\n";
+        index++;
     }
+
     return out;
 }
 
-//std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
-//{
-//    in >> automaton.stari >> automaton.alfabetIntrare >> automaton.stareInitiala >> automaton.stariFinale;
-//    while (!in.eof())
-//    {
-//        char stare, val;
-//        std::string rez;
-//        in >> stare >> val >> rez;
-//        automaton.tranzitii[{stare, val}] += rez;
-//    }
-//    return in;
-//}
+
+
+
+
+std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
+{
+    // Read stari
+    std::string tempStare;
+    in >> tempStare;
+    automaton.stari.clear(); // Clear existing data
+    while (in && tempStare != "alfabetIntrare")
+    {
+        automaton.stari.push_back(tempStare);
+        in >> tempStare;
+    }
+
+    // Read alfabetIntrare
+    std::string tempAlfabet;
+    in >> tempAlfabet;
+    automaton.alfabetIntrare.clear(); // Clear existing data
+    while (in && tempAlfabet != "stareInitiala")
+    {
+        automaton.alfabetIntrare.push_back(tempAlfabet);
+        in >> tempAlfabet;
+    }
+
+    // Read stareInitiala
+    in >> automaton.stareInitiala;
+
+    // Read stariFinale
+    std::string tempStareFinala;
+    in >> tempStareFinala;
+    automaton.stariFinale.clear(); // Clear existing data
+    while (in && tempStareFinala != "tranzitii")
+    {
+        automaton.stariFinale.push_back(tempStareFinala);
+        in >> tempStareFinala;
+    }
+
+    // Read tranzitii
+    while (!in.eof())
+    {
+        char stare, val;
+        std::string rez;
+        in >> stare >> val >> rez;
+        automaton.tranzitii[{stare, val}] += rez;
+    }
+    return in;
+}
+
 
 void FiniteAutomaton::SetStari(std::vector<std::string> stari)
 {
@@ -90,24 +129,24 @@ void FiniteAutomaton::AddTranzitie(std::pair<std::string, std::string> tranzitie
 //    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
 //        return false;
 //
-//    
+//
 //    //Starea finala este gasita in multimea de stari
-//    if (CheckAllLettersPartOf(stari, stariFinale) == false)
+//    if (std::find(stari.begin(), stari.end(), stariFinale) != stari.end())
 //        return false;
 //
 //    //Trece prin tranzitii
 //    for (auto it = tranzitii.begin(); it != tranzitii.end(); it++)
 //    {
-//        //Nodul din care pleaca tranzitia exista
-//        if (stari.find(it->first.first) == std::string::npos)
+//        //Nodul din care pleaca tranzitia exista &(A,*)->{B}
+//        if (std::find(stari.begin(), stari.end(), it->first.first) != stari.end())
 //            return false;
 //
 //        //simbolul cu care pleaca tranzitia exista
-//        if (alfabetIntrare.find(it->first.second) == std::string::npos)
+//        if ((std::find(alfabetIntrare.begin(), alfabetIntrare.end(), it->first.second) != alfabetIntrare.end()))
 //            return false;
 //
 //        //Nodul in care pleaca tranzitia exista
-//        if (CheckAllLettersPartOf(stari, it->second) == false)
+//        if (std::find(stari.begin(), stari.end(), it->second) != stari.end())
 //            return false;
 //    }
 //    return true;

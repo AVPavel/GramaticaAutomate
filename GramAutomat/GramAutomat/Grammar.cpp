@@ -35,14 +35,14 @@ Production Grammar::GetProductii()
 	return mProductii;
 }
 
-//bool Grammar::ContainsLambda() {
-//	for (const auto& rule : this->mProductii.mRules) {
-//		if (rule.right.size() == 1 && rule.right[0] == "-") {
-//			return true;
-//		}
-//	}
-//	return false;
-//}
+bool Grammar::ContainsLambda() {
+	for (const auto& rule : this->mProductii.mRules) {
+		if (rule.right.size() == 1 && rule.right[0] == "-") {
+			return true;
+		}
+	}
+	return false;
+}
 
 //std::string Grammar::GenerateWord()
 //{

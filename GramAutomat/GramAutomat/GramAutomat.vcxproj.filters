@@ -55,5 +55,8 @@
     <Text Include="GrammarData.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="AutomatonData.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

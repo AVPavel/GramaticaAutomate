@@ -48,9 +48,12 @@ int main()
 */
     //Daca Gramatica este valida(partea de sus)
     std::cout << "Hello????eee";
-    std::fstream file("GrammarData.txt");
+    //std::fstream file("GrammarData.txt");
     Grammar* gram = new Grammar();
-    file >> *gram;
+    //file >> *gram;
+    std::fstream file("AutomatonData.txt");
+    FiniteAutomaton* automat = new FiniteAutomaton();
+    file >> *automat;
     bool OK;
     gram->IsRegular() ? OK = true : OK = false;
     char option;
@@ -76,6 +79,8 @@ int main()
         case '3':
             //Obtine/Afiseaza Automat
             std::cout << "Obtine/Afiseaza automat";
+            std::cout << *automat;
+
             break;
         case '4':
             //Verifica cuvant
