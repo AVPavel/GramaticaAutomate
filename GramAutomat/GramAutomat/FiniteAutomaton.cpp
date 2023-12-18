@@ -119,34 +119,36 @@ void FiniteAutomaton::AddTranzitie(std::pair<std::string, std::string> tranzitie
         tranzitii[{tranzitie.first[0], tranzitie.second[0]}] += "T";
 }
 
-//bool FiniteAutomaton::VerifyAutomaton()
-//{
-//    //Are sau nu stare initiala
-//    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
-//        return false;
-//
-//
-//    //Starea finala este gasita in multimea de stari
-//    if (std::find(stari.begin(), stari.end(), stariFinale) != stari.end())
-//        return false;
-//
-//    //Trece prin tranzitii
-//    for (auto it = tranzitii.begin(); it != tranzitii.end(); it++)
-//    {
-//        //Nodul din care pleaca tranzitia exista &(A,*)->{B}
-//        if (std::find(stari.begin(), stari.end(), it->first.first) != stari.end())
-//            return false;
-//
-//        //simbolul cu care pleaca tranzitia exista
-//        if ((std::find(alfabetIntrare.begin(), alfabetIntrare.end(), it->first.second) != alfabetIntrare.end()))
-//            return false;
-//
-//        //Nodul in care pleaca tranzitia exista
-//        if (std::find(stari.begin(), stari.end(), it->second) != stari.end())
-//            return false;
-//    }
-//    return true;
-//}
+bool FiniteAutomaton::VerifyAutomaton()
+{
+    //Are sau nu stare initiala
+    if (std::find(stari.begin(), stari.end(), stareInitiala) != stari.end())
+        return false;
+
+
+    //Starea finala este gasita in multimea de stari
+    for (const auto& stare : stariFinale) {
+        if (std::find(stari.begin(), stari.end(), stare) != stari.end())
+            return false;
+    }
+
+    //Trece prin tranzitii
+    for (auto it = tranzitii.begin(); it != tranzitii.end(); it++)
+    {
+        //Nodul din care pleaca tranzitia exista &(A,*)->{B}
+        if (std::find(stari.begin(), stari.end(), std::string(1,it->first.first)) != stari.end())
+            return false;
+
+        //simbolul cu care pleaca tranzitia exista
+        if ((std::find(alfabetIntrare.begin(), alfabetIntrare.end(), std::string(1,it->first.second)) != alfabetIntrare.end()))
+            return false;
+
+        //Nodul in care pleaca tranzitia exista
+        if (std::find(stari.begin(), stari.end(), it->second) != stari.end())
+            return false;
+    }
+    return true;
+}
 
 
 //Verifica daca o tranzitie se duce in mai multe noduri
