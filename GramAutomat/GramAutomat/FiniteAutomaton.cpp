@@ -49,40 +49,36 @@ std::ostream& operator<<(std::ostream& out, const FiniteAutomaton& automaton)
 
 std::istream& operator>>(std::istream& in, FiniteAutomaton& automaton)
 {
-    // Read stari
+    
     std::string tempStare;
     in >> tempStare;
-    automaton.stari.clear(); // Clear existing data
-    while (in && tempStare != "alfabetIntrare")
-    {
-        automaton.stari.push_back(tempStare);
-        in >> tempStare;
+    automaton.stari.clear();
+    for (const auto& character : tempStare) {
+        automaton.stari.push_back(std::string(1, character));
     }
+    
 
-    // Read alfabetIntrare
+    
     std::string tempAlfabet;
     in >> tempAlfabet;
-    automaton.alfabetIntrare.clear(); // Clear existing data
-    while (in && tempAlfabet != "stareInitiala")
-    {
-        automaton.alfabetIntrare.push_back(tempAlfabet);
-        in >> tempAlfabet;
+    automaton.alfabetIntrare.clear();
+    for (const auto& character : tempAlfabet) {
+        automaton.alfabetIntrare.push_back(std::string(1, character));
     }
+    
 
-    // Read stareInitiala
+    
     in >> automaton.stareInitiala;
 
-    // Read stariFinale
+    
     std::string tempStareFinala;
     in >> tempStareFinala;
-    automaton.stariFinale.clear(); // Clear existing data
-    while (in && tempStareFinala != "tranzitii")
-    {
-        automaton.stariFinale.push_back(tempStareFinala);
-        in >> tempStareFinala;
+    automaton.stariFinale.clear();
+    for (const auto& character : tempStareFinala) {
+        automaton.stariFinale.push_back(std::string(1, character));
     }
 
-    // Read tranzitii
+    
     while (!in.eof())
     {
         char stare, val;

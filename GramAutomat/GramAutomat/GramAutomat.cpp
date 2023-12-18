@@ -47,13 +47,12 @@ int main()
     IsRegular  
 */
     //Daca Gramatica este valida(partea de sus)
-    std::cout << "Hello????eee";
-    //std::fstream file("GrammarData.txt");
+    std::fstream file("GrammarData.txt");
     Grammar* gram = new Grammar();
-    //file >> *gram;
-    std::fstream file("AutomatonData.txt");
+    file >> *gram;
+    std::fstream fileA("AutomatonData.txt");
     FiniteAutomaton* automat = new FiniteAutomaton();
-    file >> *automat;
+    fileA >> *automat;
     bool OK;
     gram->IsRegular() ? OK = true : OK = false;
     char option;
