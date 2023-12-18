@@ -91,23 +91,17 @@ bool Grammar::ContainsLambda() {
 
 std::string Grammar::GenerateWord()
 {
-	std::string cuvant = mSimbolStart;
-	while(!GrammarUtils::IsWordGenerated(cuvant, mNeterminale))
+	std::string simbStart = mSimbolStart;
+	while (!GrammarUtils::IsWordGenerated(simbStart, mNeterminale))
 	{
-		std::vector<int> productiiPosibile = GrammarUtils::FindPossibleProductions(cuvant, mProductii);
-		//0 -> 3;  1-> 4
-		std::random_device rd;
-		std::mt19937 eng(rd());
-		std::uniform_int_distribution<> distr(0, productiiPosibile.size() - 1);
-
-		int randomIndex = distr(eng);
-		//pp ca genereaza 0
-		
-		GrammarUtils::ApplyProduction(cuvant, mProductii, productiiPosibile[randomIndex]);		
+		std::vector<int> prodindex = GrammarUtils::FindPossibleProductions(simbStart, mProductii);
+		std::random_device random;
+		std::mt19937 eng(random());
+		std::uniform_int_distribution <> dis(0, prodindex.size() - 1);
+		int rndindx = dis(eng);
+		GrammarUtils::ApplyProduction(simbStart, mProductii, prodindex[rndindx]);
 	}
-
-
-	return cuvant;
+	return simbStart;
 }
 //
 bool Grammar::VerifyGrammar() {
@@ -171,7 +165,7 @@ bool Grammar::IsRegular() {
 		if (GrammarUtils::IsNeterminal(u, this->mNeterminale) == false) {
 			return false;
 		}
-		if (GrammarUtils::IsTerminal(v[0], this->mTerminale) == false) {
+		if (GrammarUtils::IsTerminal(v[0], this->mTerminale) == false && v[0] != "-") {
 			return false;
 		}
 		if (v.size() == 2) {
@@ -233,9 +227,7 @@ std::istream& operator>>(std::istream& in, Grammar& g)
 		std::string word, derivedWord;
 		in >> word >> derivedWord;
 
-		// Check for the end of the input
-		if (in.eof())
-			break;
+		
 
 		// Assuming mProductii is a Production object
 		std::vector<std::string> derivedWordSplit;
@@ -244,6 +236,9 @@ std::istream& operator>>(std::istream& in, Grammar& g)
 		}
 		Rule rule(word, derivedWordSplit);
 		g.mProductii.AddRule(rule);
+		// Check for the end of the input
+		if (in.eof())
+			break;
 	}
 
 	return in;

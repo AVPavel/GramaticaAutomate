@@ -52,11 +52,11 @@ int main()
     std::fstream fileA("AutomatonData.txt");
     FiniteAutomaton* automat = new FiniteAutomaton();
     fileA >> *automat;
-    bool OK;
-    gram->IsRegular() ? OK = true : OK = false;
+    bool OK = true;
+    //gram->IsRegular() ? OK = true : OK = false;
     char option;
-    if (OK == false)
-        std::cout << "Gramatica nu e regulata. Meniu indisponibil.";
+    /*if (OK == false)
+        std::cout << "Gramatica nu e regulata. Meniu indisponibil.";*/
     while (OK) {
         printMenu();
         std::cin >> option;

@@ -1,9 +1,12 @@
-SA abc+* S
-S aA
-S bA
-S cA
-A +S
-A *S
-S a
-S b
-S c
+TSXY ab$# T
+T aS
+T aX
+T -
+S bYb
+S #X$
+X $S
+X bX
+X #Y
+Y aS
+Y bX
+Y $
