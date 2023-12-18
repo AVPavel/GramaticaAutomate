@@ -17,28 +17,27 @@ void printMenu()
 
 
 
-//FiniteAutomaton transformGrammarInAutomaton(Grammar grammar)
-//{
-//    FiniteAutomaton automaton;
-//    std::vector<std::string> neterminale = grammar.GetNeterminale();
-//    neterminale.push_back("T");
-//    automaton.SetStari(neterminale); //
-//    automaton.SetStareInitiala(grammar.GetSimbolStart());
-//    automaton.SetAlfabetIntrare(grammar.GetTerminale()); 
-//    if (!grammar.ContainsLambda())
-//        automaton.SetStariFinale("T");
-//    else
-//    {
-//        std::string st = "T";
-//        st += grammar.GetSimbolStart();
-//        automaton.SetStariFinale(st);
-//    }
-//    std::vector<std::pair<std::string, std::string>> productii = grammar.GetProductii();
-//    int n = productii.size();
-//    for (int i = 0; i < n; i++)
-//        automaton.AddTranzitie(productii[i]);
-//    return automaton;
-//}
+FiniteAutomaton transformGrammarInAutomaton(Grammar grammar)
+{
+    FiniteAutomaton automaton;
+    std::vector<std::string> neterminale = grammar.GetNeterminale();
+    neterminale.push_back("T");
+    automaton.SetStari(neterminale); //
+    automaton.SetStareInitiala(grammar.GetSimbolStart());
+    automaton.SetAlfabetIntrare(grammar.GetTerminale()); 
+    if (!grammar.ContainsLambda()) {
+        automaton.SetStariFinale({ "T" });
+    }
+    else
+    {
+        std::string st = "T";
+        st += grammar.GetSimbolStart();
+        automaton.SetStariFinale({st});
+    }
+    Production productii = grammar.GetProductii();
+    int n = productii.getNumberOfRules();
+    return automaton;
+}
 
 int main()
 {
@@ -85,9 +84,18 @@ int main()
             //Verifica cuvant
             std::cout << "Se verifica un cuvant (din fisier)";
             break;
-        case '5':
+        case '5': {
             //Genereaza cuvant + Verifica
-            std::cout << "Se va genera + verifica cuvantul";
+            std::string cuvant = gram->GenerateWord();
+            std::cout << "\nCuvantul este: " << cuvant << "\n";
+            if (automat->CheckWord(cuvant)) {
+                std::cout << "acceptat";
+            }
+            else
+            {
+                std::cout << "nu este acceptat";
+            }
+        }
             break;
         case '9':
             //Exit
